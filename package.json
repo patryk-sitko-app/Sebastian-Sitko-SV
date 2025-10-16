@@ -1,0 +1,31 @@
+{
+  "name": "sebastian-sv-server-render",
+  "version": "1.0.0",
+  "description": "Server Side of sebastian-sitko-sv",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "nodemon index.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patryk-sitko-app/Sebastian-Sitko-SV.git"
+  },
+  "keywords": [
+    "sebastian",
+    "cv",
+    "server",
+    "render"
+  ],
+  "author": "Patryk Sitko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patryk-sitko-app/Sebastian-Sitko-SV/issues"
+  },
+  "homepage": "https://github.com/patryk-sitko-app/Sebastian-Sitko-SV#readme",
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  }
+}
