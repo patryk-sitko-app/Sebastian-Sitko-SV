@@ -4,11 +4,10 @@ import path from "path";
 import fs from "fs";
 import ReactDomServer from "react-dom/server";
 import App from "./app.js";
-import { URL } from "url";
 
 const __dirname = import.meta.url.substring(
   import.meta.url.indexOf("://") + 3,
-  import.meta.url.length - 8
+  import.meta.url.length - "/index.js".length
 );
 
 const server = http.createServer(function (req, res) {
