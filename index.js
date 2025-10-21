@@ -13,24 +13,38 @@ const __dirname = import.meta.url.substring(
 const server = http.createServer(function (req, res) {
   console.log(req.url);
   switch (req.url) {
-    case "/":
-      const toHydrateDOM = ReactDomServer.renderToString(
-        App() //React.createElement("div", null, "react")
-        // { bootstrapScripts: ["/main.js"] }
-      );
+    default:
+      const toHydrateDOM = ReactDomServer.renderToString(App());
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(toHydrateDOM);
       break;
     case "/img/favicon.ico":
-      const FAVICON = path.join(__dirname, "img", "favicon.ico");
-      res.writeHead(200, { "Content-Type": "image/x-icon" });
-      const readSteamFAVICON = fs.createReadStream(FAVICON);
-      readSteamFAVICON.on("data", (data) => {
-        res.end(data);
+      const FAVICON = path.join(__dirname, "img", "sebastian logo.jpg");
+      // ensure file exists before streaming
+      fs.stat(FAVICON, (err, stats) => {
+        if (err || !stats.isFile()) {
+          res.writeHead(404, { "Content-Type": "text/plain" });
+          return res.end("Not found");
+        }
+
+        // set correct content-type and length
+        res.writeHead(200, {
+          "Content-Type": "image/jpeg",
+          "Content-Length": stats.size,
+        });
+
+        const readStreamFAVICON = fs.createReadStream(FAVICON);
+        readStreamFAVICON.on("error", (streamErr) => {
+          console.error(streamErr);
+          if (!res.headersSent) {
+            res.writeHead(500, { "Content-Type": "text/plain" });
+          }
+          res.end("Server error");
+        });
+
+        // pipe the file stream to the response (handles backpressure and ends response)
+        readStreamFAVICON.pipe(res);
       });
-      break;
-    default:
-      res.end("Hello World!");
   }
 });
 

@@ -9,7 +9,16 @@ export default function App() {
       { className: "App-header", style: { backgroundColor: "pink" } },
       new Set()
         .add(
-          React.createElement("img", { src: "/img/favicon.ico", key: "image" })
+          React.createElement("img", {
+            src: "/img/favicon.ico",
+            key: "image",
+            style: {
+              width: "100%",
+              height: "100%",
+              borderRadius: 50,
+              objectFit: "cover",
+            },
+          })
         )
         .add(React.createElement("p", { key: "paragraph" }, "hello"))
         .add(
